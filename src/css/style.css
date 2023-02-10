@@ -1,3 +1,42 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.topic-button {
+    background-color: rgb(37, 99, 235);
+    color: white;
+    font-weight: bold;
+    font-size: 1.3rem;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    transition: background ease-in-out 300ms;
+}
+
+.topic-button:hover {
+    background-color: rgb(0, 73, 229);
+}
+
+.question-container {
+    border: 2px solid #15803d;
+}
+
+.option-list {
+
+}
+
+.answer-option {
+
+}
+
+.question-controlls-button {
+    background: #22c55e;
+    color: white;
+    border-radius: 4px;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    transition: background ease-in-out 300ms;
+}
+
+.question-controlls-button:hover {
+    background: #15803d;
+}
