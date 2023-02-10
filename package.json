@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "npx vite serve --host",
     "build": "npx vite build --emptyOutDir",
-    "preview": "npx vite preview --host"
+    "preview": "npx vite preview --host",
+    "tailwind:watch": "tailwindcss -i .\\src\\css\\style.css -o ./src/css/output.css --watch"
   },
   "author": "Sachin Bhatnagar <sachin@knowledgehut.co> (https://www.knowledgehut.com)",
   "license": "AFL-3.0",
