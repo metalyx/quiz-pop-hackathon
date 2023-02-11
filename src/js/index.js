@@ -18,13 +18,19 @@ function init () {
         const fragment = document.createDocumentFragment();
     
         for (let i = 0; i < dataKeys.length; i++) {
-            const topic = document.createElement('button');
-            
-            // Check if topic already solved 
+            const topic = document.createElement('button');     
 
             topic.innerText = dataKeys[i].toUpperCase();
             topic.classList.add('topic-button');
             topic.dataset.topicName = dataKeys[i];
+
+            const localStorageTopicData = JSON.parse(window.localStorage.getItem(dataKeys[i]));
+
+            if (localStorageTopicData?.completed) {
+                topic.classList.add('solved');
+            } else {
+                topic.classList.remove('solved');
+            }
     
             fragment.appendChild(topic);
         }
@@ -50,14 +56,19 @@ function addListenersForTopicsButtons () {
 }
 
 function clickTopicButton (topicName) {
-    const topicData = data[topicName];
-
-    if (topicData) {
-        currentTopicName = topicName;
-        currentTopicDataIndex = 0;
-        initTopic();
+    if (JSON.parse(window.localStorage.getItem(topicName))?.completed) {
+        const quizContainer = document.getElementById('quiz-container')
+        render(quizContainer, showResultsScreen(true, topicName))
     } else {
-        throw new Error('No such topic were found...')
+        const topicData = data[topicName];
+
+        if (topicData) {
+            currentTopicName = topicName;
+            currentTopicDataIndex = 0;
+            initTopic();
+        } else {
+            throw new Error('No such topic were found...')
+        }
     }
 }
 
@@ -82,9 +93,6 @@ function initTopic () {
     optionsContainer.appendChild(optionsUl);
     controllsContainer.appendChild(controlls);
     
-
-    // render(topicContainer, combineElements([questionContainer, optionsContainer, controllsContainer]));
-    // render(quizContainer, topicContainer);
     render(quizContainer, combineElements([questionContainer, optionsContainer, controllsContainer]));
 }
 
@@ -172,14 +180,12 @@ function createControlls () {
     nextButton.addEventListener('click', () => {  
         if (data[currentTopicName][currentTopicDataIndex].userAnswer || curUserAnswer) {
             if (currentTopicDataIndex === data[currentTopicName].length - 1) {
-                // Submit test + add info to local storage
-                // ...
-                console.log('submit!')
 
                 data[currentTopicName][currentTopicDataIndex].userAnswer = data[currentTopicName][currentTopicDataIndex].userAnswer ?? curUserAnswer;
                 curUserAnswer = null;
-            
-                init();
+
+                const quizContainer = document.getElementById('quiz-container');
+                render(quizContainer, showResultsScreen());
             } else {
                 data[currentTopicName][currentTopicDataIndex].userAnswer = data[currentTopicName][currentTopicDataIndex].userAnswer ?? curUserAnswer;
     
@@ -205,6 +211,73 @@ function createControlls () {
 
     controlls.appendChild(combineElements([prevButton, nextButton]));
     return controlls;
+}
+
+function showResultsScreen (fromLocalStorage = false, topicName) {
+
+    const resultsContainer = document.createElement('div');
+    resultsContainer.classList.add('results-container');
+
+    const heading = document.createElement('h1');
+    heading.classList.add('text-center', 'font-medium', 'leading-tight', 'text-5xl', 'mt-0', 'mb-7', 'text-blue-600')
+    heading.innerText = 'Test report'
+
+    const ul = document.createElement('ul');
+    ul.classList.add('results-list');
+
+    const liCorrectAnswers = document.createElement('li');
+    const liInCorrectAnswers = document.createElement('li');
+    const liTotalScore = document.createElement('li');
+    const liTotalQuestions = document.createElement('li');
+
+    if (fromLocalStorage) {
+        const localStorageResults = JSON.parse(window.localStorage.getItem(topicName));
+
+        let { correctAnswers, totalQuestions, incorrectAnswers, score } = localStorageResults;
+        
+    
+        liCorrectAnswers.innerText = `Total correct answers: ${correctAnswers}`;
+        liInCorrectAnswers.innerText = `Total incorrect answers: ${incorrectAnswers}`;
+        liTotalScore.innerText = `Total score: ${score}`;
+        liTotalQuestions.innerText = `Total questions: ${totalQuestions}`;
+    
+
+        render(ul, combineElements([liCorrectAnswers, liInCorrectAnswers, liTotalScore, liTotalQuestions]));
+        render(resultsContainer, combineElements([heading, ul]));
+
+        return resultsContainer;
+    } else {
+        let correctAnswers = 0;
+        let totalQuestions = data[currentTopicName].length;
+        let score = 0;
+        
+        for (let i = 0; i < data[currentTopicName].length; i++) {
+            if (data[currentTopicName][i].userAnswer === data[currentTopicName][i].answer) {
+                correctAnswers += 1;
+                score += 1;
+            }
+        }
+    
+        liCorrectAnswers.innerText = `Total correct answers: ${correctAnswers}`;
+        liInCorrectAnswers.innerText = `Total incorrect answers: ${totalQuestions - correctAnswers}`;
+        liTotalScore.innerText = `Total score: ${score}`;
+        liTotalQuestions.innerText = `Total questions: ${totalQuestions}`;
+    
+        const resultsObject = {
+            completed: true,
+            correctAnswers,
+            incorrectAnswers: totalQuestions - correctAnswers,
+            score,
+            totalQuestions
+        }
+    
+        window.localStorage.setItem(currentTopicName, JSON.stringify(resultsObject));
+
+        render(ul, combineElements([liCorrectAnswers, liInCorrectAnswers, liTotalScore, liTotalQuestions]));
+        render(resultsContainer, combineElements([heading, ul]));
+
+        return resultsContainer;
+    }
 }
 
 function render (target, content) {
