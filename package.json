@@ -5,14 +5,12 @@
   "scripts": {
     "dev": "npx vite serve --host",
     "build": "npx vite build --emptyOutDir",
-    "preview": "npx vite preview --host",
-    "tailwind:watch": "tailwindcss -i .\\src\\css\\style.css -o ./src/css/output.css --watch"
+    "preview": "npx vite preview --host"
   },
   "author": "Sachin Bhatnagar <sachin@knowledgehut.co> (https://www.knowledgehut.com)",
   "license": "AFL-3.0",
   "devDependencies": {
     "msw": "^0.47.4",
-    "tailwindcss": "^3.2.6",
     "vite": "^3.2.3"
   },
   "msw": {
