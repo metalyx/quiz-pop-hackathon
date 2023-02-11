@@ -620,21 +620,47 @@ video {
   border: 2px solid #15803d;
 }
 
-.option-list {
+.option-list li:first-child {
+  margin-top: 10px;
+}
+
+.option-list li {
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 
 .answer-option {
+  cursor: pointer;
+}
+
+.chosen-answer {
+  border: 2px solid #15803d;
 }
 
 .question-controlls-button {
   background: #22c55e;
   color: white;
+  font-size: 2rem;
   border-radius: 4px;
-  padding: 1rem 2rem;
+  padding: 0.8rem 1.5rem;
+  margin-right: 10px;
   font-weight: bold;
   transition: background ease-in-out 300ms;
 }
 
 .question-controlls-button:hover {
   background: #15803d;
+}
+
+.not-allowed {
+  cursor: not-allowed !important;
+}
+
+.disabled {
+  opacity: 0.5;
+}
+
+.disabled:hover {
+  background: unset;
 }

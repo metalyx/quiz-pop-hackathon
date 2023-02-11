@@ -3,7 +3,7 @@ import data from '../data/dataset.json';
 const topicsContainer = document.getElementById('topics-container');
 const dataKeys = Object.keys(data);
 
-let currentTopicName, currentTopicDataIndex = 0;
+let currentTopicName, curUserAnswer = null, currentTopicDataIndex = 0;
 
 init();
 addListenersForTopicsButtons();
@@ -112,11 +112,20 @@ function createOptions() {
     const arrayOfLi = [];
 
     for (let i = 0; i < options.length; i++) {
-        // add logic to maintain already chosen answers
 
         const li = document.createElement('li');
+
         li.classList.add('answer-option');
         li.innerText = options[i];
+
+        if (data[currentTopicName][currentTopicDataIndex].userAnswer === li.innerText) {
+            li.classList.add('chosen-answer');
+        } else if (data[currentTopicName][currentTopicDataIndex].userAnswer) {
+            li.classList.add('not-allowed');
+        }
+
+        li.addEventListener('click', (e) => chooseAnswer(e.target));
+
         arrayOfLi.push(li);
     }
 
@@ -124,6 +133,23 @@ function createOptions() {
     ul.classList.add('option-list');
 
     return ul;
+}
+
+function chooseAnswer (clickedLiElement) {
+    if (!data[currentTopicName][currentTopicDataIndex].userAnswer) {
+
+        curUserAnswer = clickedLiElement.innerText;
+
+        const existingOptions = document.getElementsByClassName('answer-option');
+
+        for (let i = 0; i < existingOptions.length; i++) {
+            if (existingOptions[i].isSameNode(clickedLiElement)) {
+                clickedLiElement.classList.add('chosen-answer');
+            } else {
+                existingOptions[i].classList.remove('chosen-answer');
+            }
+        }
+    }
 }
 
 function createControlls () {
@@ -135,18 +161,39 @@ function createControlls () {
     nextButton.innerText = '>';
 
     prevButton.classList.add('question-controlls-button');
+    if (currentTopicDataIndex === 0) {
+        prevButton.classList.add('disabled');
+    } else {
+        prevButton.classList.remove('disabled');
+    }
+
     nextButton.classList.add('question-controlls-button');
 
-    nextButton.addEventListener('click', () => {
-        if (currentTopicDataIndex === data[currentTopicName].length - 1) {
-            // Submit test + add info to local storage
-            // ...
+    nextButton.addEventListener('click', () => {  
+        if (data[currentTopicName][currentTopicDataIndex].userAnswer || curUserAnswer) {
+            if (currentTopicDataIndex === data[currentTopicName].length - 1) {
+                // Submit test + add info to local storage
+                // ...
+                console.log('submit!')
 
-            init();
-        } else {
-            currentTopicDataIndex += 1;
-            initTopic();
+                data[currentTopicName][currentTopicDataIndex].userAnswer = data[currentTopicName][currentTopicDataIndex].userAnswer ?? curUserAnswer;
+                curUserAnswer = null;
+            
+                init();
+            } else {
+                data[currentTopicName][currentTopicDataIndex].userAnswer = data[currentTopicName][currentTopicDataIndex].userAnswer ?? curUserAnswer;
+    
+                curUserAnswer = null;
+                currentTopicDataIndex += 1;
+
+                initTopic();
+            }
         }
+
+        
+        console.log('currentTopicDataIndex', currentTopicDataIndex)
+
+        
     });
 
     prevButton.addEventListener('click', () => {
