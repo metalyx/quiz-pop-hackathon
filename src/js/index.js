@@ -1,21 +1,22 @@
 import data from '../data/dataset.json';
 
-const topicsContainer = document.getElementById('topics-container');
 const dataKeys = Object.keys(data);
 
 let currentTopicName, curUserAnswer = null, currentTopicDataIndex = 0;
 
 init();
-addListenersForTopicsButtons();
 
 function init () {
-    if (data && topicsContainer) {
-    
+
+    if (data) {
+
         if (dataKeys.length <= 0) {
             throw new Error('Invalid data provided');
         }
-    
+
         const fragment = document.createDocumentFragment();
+
+        fragment.appendChild(getHeadingElement('Pick the topic'));
     
         for (let i = 0; i < dataKeys.length; i++) {
             const topic = document.createElement('button');     
@@ -31,13 +32,15 @@ function init () {
             } else {
                 topic.classList.remove('solved');
             }
-    
+
             fragment.appendChild(topic);
         }
-    
-        topicsContainer.innerHTML = '';
-        topicsContainer.appendChild(fragment)
-    
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        quizContainer.innerHTML = '';
+        quizContainer.appendChild(fragment);
+        addListenersForTopicsButtons();
     } else {
         throw new Error('Container not found in the DOM tree, or data cannot be fetched')
     }
@@ -53,6 +56,22 @@ function addListenersForTopicsButtons () {
     for (let i = 0; i < topicsButtons.length; i++) {
         topicsButtons[i].addEventListener('click', (e) => clickTopicButton(e.target.dataset.topicName));
     }
+}
+
+function getHeadingElement (text, primary = true, success = false) {
+    const heading = document.createElement('h1');
+    heading.innerText = text;
+
+    if (primary) {
+        heading.classList.add('heading-primary');
+        heading.classList.remove('heading-sucess');
+    }
+    if (success) {
+        heading.classList.remove('heading-primary');
+        heading.classList.add('heading-success');
+    }
+
+    return heading;
 }
 
 function clickTopicButton (topicName) {
@@ -74,9 +93,6 @@ function clickTopicButton (topicName) {
 
 function initTopic () {
     const quizContainer = document.getElementById('quiz-container');
-    
-    const topicContainer = document.createElement('div');
-    topicContainer.classList.add('topic-container');
 
     const questionContainer = document.createElement('div');
     questionContainer.classList.add('question-container');
@@ -110,6 +126,7 @@ function createQuestion () {
     const p = document.createElement('p');
     
     p.innerText = data[currentTopicName][currentTopicDataIndex].question;
+    p.classList.add('unselectable')
 
     return p;
 }
@@ -218,9 +235,7 @@ function showResultsScreen (fromLocalStorage = false, topicName) {
     const resultsContainer = document.createElement('div');
     resultsContainer.classList.add('results-container');
 
-    const heading = document.createElement('h1');
-    heading.classList.add('text-center', 'font-medium', 'leading-tight', 'text-5xl', 'mt-0', 'mb-7', 'text-blue-600')
-    heading.innerText = 'Test report'
+    const heading = getHeadingElement('Test report', false, true);
 
     const ul = document.createElement('ul');
     ul.classList.add('results-list');
@@ -229,6 +244,13 @@ function showResultsScreen (fromLocalStorage = false, topicName) {
     const liInCorrectAnswers = document.createElement('li');
     const liTotalScore = document.createElement('li');
     const liTotalQuestions = document.createElement('li');
+    const returnToMainScreenButton = document.createElement('button');
+
+    returnToMainScreenButton.innerText = 'Return';
+    returnToMainScreenButton.classList.add('return-button')
+    returnToMainScreenButton.addEventListener('click', () => {
+        init();
+    })
 
     if (fromLocalStorage) {
         const localStorageResults = JSON.parse(window.localStorage.getItem(topicName));
@@ -242,7 +264,7 @@ function showResultsScreen (fromLocalStorage = false, topicName) {
         liTotalQuestions.innerText = `Total questions: ${totalQuestions}`;
     
 
-        render(ul, combineElements([liCorrectAnswers, liInCorrectAnswers, liTotalScore, liTotalQuestions]));
+        render(ul, combineElements([liCorrectAnswers, liInCorrectAnswers, liTotalScore, liTotalQuestions, returnToMainScreenButton]));
         render(resultsContainer, combineElements([heading, ul]));
 
         return resultsContainer;
@@ -273,7 +295,7 @@ function showResultsScreen (fromLocalStorage = false, topicName) {
     
         window.localStorage.setItem(currentTopicName, JSON.stringify(resultsObject));
 
-        render(ul, combineElements([liCorrectAnswers, liInCorrectAnswers, liTotalScore, liTotalQuestions]));
+        render(ul, combineElements([liCorrectAnswers, liInCorrectAnswers, liTotalScore, liTotalQuestions, returnToMainScreenButton]));
         render(resultsContainer, combineElements([heading, ul]));
 
         return resultsContainer;
