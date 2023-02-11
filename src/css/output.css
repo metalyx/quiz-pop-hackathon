@@ -639,7 +639,7 @@ video {
 }
 
 .question-controlls-button {
-  background: #22c55e;
+  background-color: rgb(37, 99, 235);
   color: white;
   font-size: 2rem;
   border-radius: 4px;
@@ -650,7 +650,7 @@ video {
 }
 
 .question-controlls-button:hover {
-  background: #15803d;
+  background-color: rgb(0, 73, 229);
 }
 
 .not-allowed {
@@ -662,5 +662,14 @@ video {
 }
 
 .disabled:hover {
-  background: unset;
+  background-color: rgb(37, 99, 235);
+  cursor: not-allowed;
+}
+
+.solved {
+  background-color: #15803d !important;
+}
+
+.solved:hover {
+  background-color: #166534 !important;
 }
