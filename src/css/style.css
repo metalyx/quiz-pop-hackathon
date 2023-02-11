@@ -1,23 +1,48 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
+
+.heading-primary {
+    font-size: 36px;
+    color: rgb(37, 99, 235);
+    text-align: center;
+    margin: 25px 0;
+}
+
+.heading-success {
+    font-size: 36px;
+    color: #15803d;
+    text-align: center;
+    margin: 25px 0;
+}
 
 .topic-button {
     background-color: rgb(37, 99, 235);
     color: white;
     font-weight: bold;
     font-size: 1.3rem;
-    padding: 1rem 2rem;
+    padding: 15px;
     border-radius: 4px;
     transition: background ease-in-out 300ms;
+
+    margin-right: 10px;
 }
 
 .topic-button:hover {
     background-color: rgb(0, 73, 229);
 }
 
-.question-container {
-    border: 2px solid #15803d;
+.topic-button:last-child {
+    margin-right: 0;
+}
+
+.question-container > p{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.question-container > p::before {
+    content: 'Q: ';
 }
 
 .option-list li:first-child {
@@ -72,4 +97,28 @@
 
 .solved:hover {
     background-color: #166534 !important;
+}
+
+.return-button {
+    background-color: #15803d;
+    padding: 5px 10px;
+    font-weight: bold;
+    color: white;
+    font-size: 18px;
+    border-radius: 4px;
+    margin: 25px 0;
+    width: 100%;
+}
+
+.return-button:hover {
+    background-color: #166534;
+}
+
+.unselectable {
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
