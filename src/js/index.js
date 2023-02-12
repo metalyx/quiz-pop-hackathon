@@ -156,7 +156,7 @@ function createOptions() {
 
         li.classList.add('answer-option');
         li.innerText = options[i];
-        li.tabIndex = i;
+        li.tabIndex = 0;
 
         if (data[currentTopicName][currentTopicDataIndex].userAnswer === li.innerText) {
             li.classList.add('chosen-answer');
@@ -198,7 +198,9 @@ function createControlls () {
     const nextButton = document.createElement('button');
 
     prevButton.innerText = '<';
+    prevButton.tabIndex = 0;
     nextButton.innerText = '>';
+    nextButton.tabIndex = 0;
 
     prevButton.classList.add('question-controlls-button');
     if (currentTopicDataIndex === 0) {
