@@ -151,20 +151,31 @@ function createOptions() {
     const arrayOfLi = [];
 
     for (let i = 0; i < options.length; i++) {
+        const input = document.createElement('input');
+        input.classList.add('option');
+        input.setAttribute('type', 'radio');
+        input.tabIndex = 0;
+        input.setAttribute('name', 'answer');
+        input.setAttribute('id', options[i]);
+
+        const label = document.createElement('label');
+        label.innerText = options[i];
+        label.setAttribute('for', options[i]);
 
         const li = document.createElement('li');
+        li.appendChild(input);
+        li.appendChild(label);
 
-        li.classList.add('answer-option');
-        li.innerText = options[i];
-        li.tabIndex = 0;
 
-        if (data[currentTopicName][currentTopicDataIndex].userAnswer === li.innerText) {
+        if (data[currentTopicName][currentTopicDataIndex].userAnswer === label.innerText) {
             li.classList.add('chosen-answer');
+            input.setAttribute('checked', true)
         } else if (data[currentTopicName][currentTopicDataIndex].userAnswer) {
             li.classList.add('not-allowed');
+            input.setAttribute('disabled', true)
         }
 
-        li.addEventListener('click', (e) => chooseAnswer(e.target));
+        input.addEventListener('click', (e) => chooseAnswer(e.target));
 
         arrayOfLi.push(li);
     }
@@ -175,18 +186,17 @@ function createOptions() {
     return ul;
 }
 
-function chooseAnswer (clickedLiElement) {
+function chooseAnswer (checkedInput) {
     if (!data[currentTopicName][currentTopicDataIndex].userAnswer) {
+        curUserAnswer = checkedInput.getAttribute('id');
 
-        curUserAnswer = clickedLiElement.innerText;
+        const options = document.getElementsByClassName('option');
 
-        const existingOptions = document.getElementsByClassName('answer-option');
-
-        for (let i = 0; i < existingOptions.length; i++) {
-            if (existingOptions[i].isSameNode(clickedLiElement)) {
-                clickedLiElement.classList.add('chosen-answer');
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].isSameNode(checkedInput)) {
+                checkedInput.classList.add('chosen-option');
             } else {
-                existingOptions[i].classList.remove('chosen-answer');
+                options[i].classList.remove('chosen-option');
             }
         }
     }
