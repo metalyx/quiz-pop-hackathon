@@ -221,7 +221,7 @@ function createControlls () {
 
     nextButton.classList.add('question-controlls-button');
 
-    nextButton.addEventListener('click', () => {  
+    nextButton.addEventListener('click', () => {
         if (data[currentTopicName][currentTopicDataIndex].userAnswer || curUserAnswer) {
             if (currentTopicDataIndex === data[currentTopicName].length - 1) {
 
@@ -238,12 +238,14 @@ function createControlls () {
 
                 initTopic();
             }
-        }
+        } else {
+            const optionsContainer = document.getElementsByClassName('option-list')[0];
+            optionsContainer.classList.add('not-valid');
 
-        
-        console.log('currentTopicDataIndex', currentTopicDataIndex)
-
-        
+            setTimeout(() => {
+                optionsContainer.classList.remove('not-valid');
+            }, 400);
+        }   
     });
 
     prevButton.addEventListener('click', () => {
