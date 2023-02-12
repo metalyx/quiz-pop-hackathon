@@ -64,6 +64,14 @@ button {
     content: 'Q: ';
 }
 
+.option-list {
+    padding: 0;
+}
+
+.option-list li input, .option-list li label {
+    cursor: pointer;
+}
+
 .option-list li:first-child {
     margin-top: 10px;
 }
@@ -74,12 +82,12 @@ button {
     margin-bottom: 10px;
 }
 
-.answer-option {
-    cursor: pointer;
+.chosen-answer > label {
+    border-bottom: 2px solid #15803d;
 }
 
-.chosen-answer {
-    border: 2px solid #15803d;
+.chosen-option ~ label {
+    border-bottom: 2px solid #15803d;
 }
 
 .question-controlls-button {
@@ -98,6 +106,9 @@ button {
 }
 
 .not-allowed {
+    cursor: not-allowed !important;
+}
+.not-allowed > label, .not-allowed > input {
     cursor: not-allowed !important;
 }
 
