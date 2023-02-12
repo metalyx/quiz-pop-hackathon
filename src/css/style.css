@@ -14,19 +14,25 @@ button {
     align-items: center;
 }
 
+.quiz-container {
+    max-width: 100%;
+}
+
 .topic-buttons-container {
     display: grid;
+    max-width: 100%;
     gap: 20px;
 
     grid-template-columns: repeat(3, 1fr);
 
-    max-height: 568px;
+    max-height: 50vh;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
 .heading-primary {
     font-size: 36px;
+    font-weight: 400;
     color: rgb(37, 99, 235);
     text-align: center;
     margin-bottom: 25px;
@@ -34,6 +40,7 @@ button {
 
 .heading-success {
     font-size: 36px;
+    font-weight: 400;
     color: #15803d;
     text-align: center;
     margin-bottom: 25px;
@@ -57,7 +64,7 @@ button {
 
 .question-container > p{
     font-weight: bold;
-    font-size: 18px;
+    font-size: 24px;
 }
 
 .question-container > p::before {
@@ -68,8 +75,24 @@ button {
     padding: 0;
 }
 
+.option-list li {
+ display: flex;
+ /* justify-content: center; */
+ align-items: center;
+}
+
 .option-list li input, .option-list li label {
     cursor: pointer;
+}
+
+.option-list li input {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+}
+
+.option-list li label {
+    font-size: 18px;
 }
 
 .option-list li:first-child {
@@ -83,11 +106,15 @@ button {
 }
 
 .chosen-answer > label {
-    border-bottom: 2px solid #15803d;
+    animation: underlineGreen;
+   animation-duration: 300ms;
+   animation-fill-mode: forwards;
 }
 
 .chosen-option ~ label {
-    border-bottom: 2px solid #15803d;
+   animation: underlineGreen;
+   animation-duration: 300ms;
+   animation-fill-mode: forwards;
 }
 
 .question-controlls-button {
@@ -167,10 +194,82 @@ button {
     text-align: center;
 }
 
-@media screen and (min-width: 1280px) {
+.not-valid {
+    animation: invalid;
+    animation-duration: 400ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes underlineGreen {
+    0% {
+        text-decoration: transparent underline;
+        text-decoration-thickness: 3px;
+    }
+
+    100% {
+        text-decoration: g underline;
+        text-decoration: #15803d underline;
+        text-decoration-thickness: 3px;
+    }
+}
+
+@keyframes invalid {
+    0% {
+        background-color: initial;
+        translate: 0 0;
+    }
+
+    25% {
+        translate: 6px 0;
+    }
+
+    50% {
+        translate: -6px 0;
+        background-color: rgba(255, 0, 0, 0.2);
+    }
+
+    75% {
+        translate: 6px 0;
+    }
+
+    100% {
+        translate: 0 0;
+    }
+}
+
+
+
+@media screen and (max-width: 479px) {
     .container {
-        width: 1280px;
+        width: 100%;
+        padding: 0 10px;
         margin: 0 auto;
+    }
+    
+    .topic-buttons-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media screen and (min-width: 480px) {
+    .container {
+        width: 480px;
+        margin: 0 auto;
+    }
+
+    .topic-buttons-container {
+        grid-template-columns: 1fr;
+    }
+}
+@media screen and (min-width: 768px) {
+    .container {
+        width: 768px;
+        margin: 0 auto;
+    }
+
+    .topic-buttons-container {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -179,33 +278,23 @@ button {
         width: 1024px;
         margin: 0 auto;
     }
-}
 
-@media screen and (min-width: 768px) {
-    .container {
-        width: 768px;
-        margin: 0 auto;
+    .quiz-container {
+        max-width: 768px;
+    }
+
+    .topic-buttons-container {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1280px) {
     .container {
-        width: 768px;
+        width: 1280px;
         margin: 0 auto;
     }
-}
 
-@media screen and (min-width: 480px) {
-    .container {
-        width: 480px;
-        margin: 0 auto;
-    }
-}
-
-@media screen and (max-width: 479px) {
-    .container {
-        width: 100%;
-        padding: 0 10px;
-        margin: 0 auto;
+    .quiz-container {
+        max-width: 768px;
     }
 }
