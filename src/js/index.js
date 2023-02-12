@@ -17,6 +17,9 @@ function init () {
         const fragment = document.createDocumentFragment();
 
         fragment.appendChild(getHeadingElement('Pick the topic'));
+
+        const buttonsContainer = document.createElement('div');
+        buttonsContainer.classList.add('topic-buttons-container');
     
         for (let i = 0; i < dataKeys.length; i++) {
             const topic = document.createElement('button');     
@@ -33,8 +36,10 @@ function init () {
                 topic.classList.remove('solved');
             }
 
-            fragment.appendChild(topic);
+            buttonsContainer.appendChild(topic);
         }
+
+        fragment.appendChild(buttonsContainer);
 
         const quizContainer = document.getElementById('quiz-container');
 
@@ -124,6 +129,10 @@ function getTask () {
 
 function createQuestion () {
     const p = document.createElement('p');
+
+    if (!data[currentTopicName][currentTopicDataIndex]?.question) {
+        throw new Error(`Data for topic with topicName ${currentTopicName} is not provided`);
+    }
     
     p.innerText = data[currentTopicName][currentTopicDataIndex].question;
     p.classList.add('unselectable')
@@ -133,7 +142,12 @@ function createQuestion () {
 
 function createOptions() {
     const ul = document.createElement('ul');
-    const options = data[currentTopicName][currentTopicDataIndex].options;
+    const options = data[currentTopicName][currentTopicDataIndex]?.options;
+
+    if (!options) {
+        throw new Error(`Data for topic with topicName ${currentTopicName} is not provided`);
+    }
+
     const arrayOfLi = [];
 
     for (let i = 0; i < options.length; i++) {
@@ -142,6 +156,7 @@ function createOptions() {
 
         li.classList.add('answer-option');
         li.innerText = options[i];
+        li.tabIndex = i;
 
         if (data[currentTopicName][currentTopicDataIndex].userAnswer === li.innerText) {
             li.classList.add('chosen-answer');
@@ -227,6 +242,7 @@ function createControlls () {
     });
 
     controlls.appendChild(combineElements([prevButton, nextButton]));
+    controlls.classList.add('controlls-container');
     return controlls;
 }
 

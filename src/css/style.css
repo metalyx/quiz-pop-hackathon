@@ -1,15 +1,43 @@
+* {
+    font-family: sans-serif;
+}
+
+button {
+    cursor: pointer;
+    outline: none;
+    border: none;
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.topic-buttons-container {
+    display: grid;
+    gap: 20px;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    max-height: 568px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
 .heading-primary {
     font-size: 36px;
     color: rgb(37, 99, 235);
     text-align: center;
-    margin: 25px 0;
+    margin-bottom: 25px;
 }
 
 .heading-success {
     font-size: 36px;
     color: #15803d;
     text-align: center;
-    margin: 25px 0;
+    margin-bottom: 25px;
 }
 
 .topic-button {
@@ -21,15 +49,11 @@
     border-radius: 4px;
     transition: background ease-in-out 300ms;
 
-    margin-right: 10px;
+    min-height: 78px;
 }
 
 .topic-button:hover {
     background-color: rgb(0, 73, 229);
-}
-
-.topic-button:last-child {
-    margin-right: 0;
 }
 
 .question-container > p{
@@ -117,4 +141,61 @@
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+}
+
+.results-list {
+    padding: 0;
+    text-align: center;
+}
+
+.results-list li {
+    font-size: 18px;
+    line-height: 20px;
+}
+
+.controlls-container {
+    text-align: center;
+}
+
+@media screen and (min-width: 1280px) {
+    .container {
+        width: 1280px;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .container {
+        width: 1024px;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .container {
+        width: 768px;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .container {
+        width: 768px;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (min-width: 480px) {
+    .container {
+        width: 480px;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    .container {
+        width: 100%;
+        padding: 0 10px;
+        margin: 0 auto;
+    }
 }
