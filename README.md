@@ -14,6 +14,10 @@ This is the solution of the Hackathon assignment as an individual.
   
 - **Production Build**: Run `npm run build` - This will produce a build edition.
 
+**Demo**
+
+- **Github Pages**: https://metalyx.github.io/quiz-pop-hackathon/
+
 **Contacts**
 - **Author**: Vitalii Tereshchenko
 - **Email**: metalyx3@gmail.com
