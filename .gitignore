@@ -1,3 +1,6 @@
 node_modules
-dist
-src/css/output.css
+src
+package-lock.json
+package.json
+README.md
+vite.config.js
