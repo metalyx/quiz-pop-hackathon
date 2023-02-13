@@ -1,0 +1,45 @@
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quiz-container {
+    width: 768px;
+}
+
+.question-container > p{
+    height: 76px;
+    display: flex;
+
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 25px;
+
+    /* height: fit-content; */
+
+    overflow-y: auto;
+}
+
+.question-container > p::before {
+    content: 'Q:\00a0';
+}
+
+.topic-buttons-container {
+    display: grid;
+    max-width: 100%;
+    gap: 20px;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    max-height: 50vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.controlls-container {
+    height: 100px;
+    display: flex;
+    align-items: center;
+}

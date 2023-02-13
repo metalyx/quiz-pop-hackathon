@@ -1,0 +1,53 @@
+.topic-button {
+    background-color: var(--blue);
+    color: white;
+    font-weight: bold;
+    font-size: 1.3rem;
+    padding: 15px;
+    border-radius: 4px;
+    transition: background ease-in-out 300ms;
+    min-height: 78px;
+}
+
+.topic-button:hover {
+    background-color: var(--blue-dark);
+}
+
+.question-controlls-button {
+    background-color: var(--blue);
+    color: white;
+    font-size: 2rem;
+    border-radius: 4px;
+    padding: 0.8rem 1.5rem;
+    margin-right: 10px;
+    font-weight: bold;
+    transition: background ease-in-out 300ms;
+}
+
+.question-controlls-button:hover {
+    background-color: var(--blue-dark);
+}
+
+.return-button {
+    background-color: var(--green);
+    padding: 5px 10px;
+    font-weight: bold;
+    color: white;
+    font-size: var(--regular-size);
+    border-radius: 4px;
+    margin: 25px 0;
+    padding: 10px 25px;
+}
+
+.return-button:hover {
+    background-color: var(--green-dark);
+}
+
+.disabled {
+    opacity: 0.5;
+}
+
+.disabled:hover {
+    background-color: var(--blue);
+    cursor: not-allowed;
+}

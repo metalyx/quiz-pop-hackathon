@@ -1,0 +1,35 @@
+@keyframes underlineBlue {
+    0% {
+        text-decoration: transparent underline;
+        text-decoration-thickness: 3px;
+    }
+
+    100% {
+        text-decoration: var(--blue) underline;
+        text-decoration-thickness: 3px;
+    }
+}
+
+@keyframes invalid {
+    0% {
+        background-color: initial;
+        translate: 0 0;
+    }
+
+    25% {
+        translate: 6px 0;
+    }
+
+    50% {
+        translate: -6px 0;
+        background-color: var(--danger-bg);
+    }
+
+    75% {
+        translate: 6px 0;
+    }
+
+    100% {
+        translate: 0 0;
+    }
+}
