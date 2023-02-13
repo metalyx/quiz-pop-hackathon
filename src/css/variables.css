@@ -1,0 +1,16 @@
+:root {
+    /* Colors */
+    --green: #15803d;
+    --green-dark: #166534;
+    --blue: rgb(37, 99, 235);
+    --blue-dark: rgb(0, 73, 229);
+    --danger-bg: rgba(255, 0, 0, 0.2);
+
+    /* Time */
+    --regular-duration: 300ms;
+    --long-duration: 400ms;
+
+    /* Fonts */
+    --regular-size: 18px;
+    --big-size: 36px;
+}

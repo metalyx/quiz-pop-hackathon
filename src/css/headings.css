@@ -1,0 +1,15 @@
+.heading-primary {
+    font-size: var(--big-size);
+    font-weight: 400;
+    color: var(--blue);
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.heading-success {
+    font-size: var(--big-size);
+    font-weight: 400;
+    color: var(--green);
+    text-align: center;
+    margin-bottom: 25px;
+}

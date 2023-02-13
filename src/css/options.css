@@ -1,0 +1,72 @@
+.option-list {
+    padding: 15px;
+    width: fit-content;
+}
+
+.option-list li {
+    display: flex;
+    align-items: center;
+}
+
+.option-list li input, .option-list li label {
+    cursor: pointer;
+}
+
+.option-list li input {
+    margin: 0;
+    display: inline-block;
+    width: var(--regular-size);
+    height: var(--regular-size);
+}
+
+.option-list li label {
+    font-size: var(--regular-size);
+    margin-left: 10px;
+}
+
+.option-list li:first-child {
+    margin-top: 10px;
+}
+
+.option-list li {
+    padding: 5px;
+    padding-left: 0;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.chosen-answer > label {
+    animation: underlineBlue;
+    animation-duration: var(--regular-duration);
+    animation-fill-mode: forwards;
+}
+
+.chosen-option ~ label {
+    animation: underlineBlue;
+    animation-duration: var(--regular-duration);
+    animation-fill-mode: forwards;
+}
+
+.not-allowed {
+    cursor: not-allowed !important;
+}
+
+.not-allowed > label, .not-allowed > input {
+    cursor: not-allowed !important;
+}
+
+.results-list {
+    padding: 0;
+    text-align: center;
+}
+
+.results-list li {
+    font-size: var(--regular-size);
+    line-height: 20px;
+}
+
+.not-valid {
+    animation: invalid;
+    animation-duration: var(--long-duration);
+    animation-fill-mode: forwards;
+}
