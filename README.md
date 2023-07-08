@@ -1,4 +1,4 @@
-## Hackathon Quiz Pop App by Vitalii Tereshchenko
+## Hackathon Quiz Pop App
 
 This is the solution of the Hackathon assignment as an individual.
 
